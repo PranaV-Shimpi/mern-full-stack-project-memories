@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Container,
     AppBar,
@@ -6,12 +6,24 @@ import {
     Grow,
     Grid,
 } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux'
+
+import { getPosts } from './reducers/posts';
 import { StyledAppBar, StyledTypography, StyledImage } from './styles';
 import memories from './images/memories.png'; // Update with your actual path
 import Posts from './components/Posts/Posts'
 import Form from './components/Form/Form'
 
 const App = () => {
+
+    const dispatch = useDispatch()
+    const posts = useSelector((state) => state.posts);
+
+    useEffect(() => {
+        dispatch(getPosts());  // Dispatch the getPosts thunk
+    }, [dispatch]);
+
+
     const [currentId, setCurrentId] = useState(0);
 
     return (
