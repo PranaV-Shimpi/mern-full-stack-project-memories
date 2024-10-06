@@ -13,18 +13,15 @@ const Form = ({ currentId, setCurrentId }) => {
   const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
 
-  // Set initial post data when editing a post
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
 
-  // Clear form
   const clear = () => {
     setCurrentId(0);
     setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,7 +29,7 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(createPost(postData));
       clear();
     } else {
-      dispatch(updatePost(currentId, postData));
+      dispatch(updatePost({id: currentId, post: postData}));
       clear();
     }
   };

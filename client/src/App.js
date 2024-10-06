@@ -7,6 +7,7 @@ import {
     Grid,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
+import './index.css'
 
 import { getPosts } from './reducers/posts';
 import { StyledAppBar, StyledTypography, StyledImage } from './styles';
@@ -15,16 +16,14 @@ import Posts from './components/Posts/Posts'
 import Form from './components/Form/Form'
 
 const App = () => {
-
-    const dispatch = useDispatch()
-    const posts = useSelector((state) => state.posts);
-
-    useEffect(() => {
-        dispatch(getPosts());  // Dispatch the getPosts thunk
-    }, [dispatch]);
-
-
     const [currentId, setCurrentId] = useState(0);
+    const dispatch = useDispatch();
+   
+  
+    useEffect(() => {
+      dispatch(getPosts());
+    }, [currentId, dispatch]);
+
 
     return (
         <Container maxWidth="lg">
