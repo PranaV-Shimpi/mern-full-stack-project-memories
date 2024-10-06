@@ -1,9 +1,11 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 import postRoutes from "./routes/posts.js";  // Import the router
 
+dotenv.config();
 
 const app = express();
 
@@ -14,7 +16,7 @@ app.use(cors());
 
 app.use('/posts', postRoutes);
 
-const CONNECTION_URL = 'mongodb+srv://pranavshimpi:Newjob%401@cluster0.o4ux6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const CONNECTION_URL = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL)
